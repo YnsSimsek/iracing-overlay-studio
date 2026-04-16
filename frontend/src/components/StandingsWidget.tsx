@@ -25,7 +25,7 @@ const countryFlag = (countryCode: string) =>
 const positionDeltaClass = (delta: number) => {
   if (delta > 0) return 'text-emerald-400'
   if (delta < 0) return 'text-rose-400'
-  return 'text-slate-400'
+  return 'text-yuka-textTertiary'
 }
 
 const positionDeltaSymbol = (delta: number) => {
@@ -34,18 +34,24 @@ const positionDeltaSymbol = (delta: number) => {
   return '→0'
 }
 
+const pitStatusClass = (pitStatus: string) => {
+  if (pitStatus.toLowerCase() === 'pit') return 'text-amber-300'
+  if (pitStatus.toLowerCase() === 'dnf') return 'text-rose-400'
+  return 'text-yuka-textSecondary'
+}
+
 export const StandingsWidget = ({ standings, changedDriverIds, settings }: Props) => {
   return (
     <div
-      className="rounded-lg border border-cyan-500/35 bg-slate-950/95 shadow-[0_0_35px_rgba(34,211,238,0.15)] overflow-hidden"
+      className="overflow-hidden rounded-xl border border-yuka-border bg-yuka-bgSecondary shadow-yuka backdrop-blur-yuka transition duration-250"
       style={{
         opacity: settings.opacity / 100,
         fontSize: `${settings.fontSize}px`,
-        transform: `translate(${settings.positionX}px, ${settings.positionY}px)`
+        backgroundColor: 'rgba(15, 18, 41, 0.75)'
       }}
     >
       <table className="w-full border-collapse">
-        <thead className="bg-slate-900/90 text-cyan-200 uppercase tracking-[0.12em] text-[0.72em]">
+        <thead className="bg-white/5 text-yuka-textSecondary uppercase tracking-[0.5px] text-[0.72em]">
           <tr>
             {settings.columns.position && <th className="px-2 py-2 text-left">Pos</th>}
             {settings.columns.positionChange && <th className="px-2 py-2 text-left">Δ</th>}
@@ -56,7 +62,7 @@ export const StandingsWidget = ({ standings, changedDriverIds, settings }: Props
             {settings.columns.interval && <th className="px-2 py-2 text-left">Int</th>}
             {settings.columns.bestTime && <th className="px-2 py-2 text-left">Best</th>}
             {settings.columns.lastTime && <th className="px-2 py-2 text-left">Last</th>}
-            {settings.columns.pitStatus && <th className="px-2 py-2 text-left">Pit</th>}
+            {settings.columns.pitStatus && <th className="px-2 py-2 text-left">Status</th>}
             {settings.columns.currentLap && <th className="px-2 py-2 text-left">Lap</th>}
           </tr>
         </thead>
@@ -64,26 +70,36 @@ export const StandingsWidget = ({ standings, changedDriverIds, settings }: Props
           {standings.map((row) => (
             <tr
               key={row.driverId}
-              className={`border-t border-slate-900 transition-all duration-200 ${
-                row.isCurrentPlayer ? 'bg-cyan-500/10 text-cyan-100' : 'bg-slate-900/65'
+              className={`border-t border-yuka-border transition duration-250 hover:bg-white/5 ${
+                row.isCurrentPlayer ? 'bg-yuka-accent/10 ring-1 ring-inset ring-yuka-accent/70' : 'bg-transparent'
               } ${changedDriverIds.includes(row.driverId) ? 'animate-pulse' : ''}`}
               style={{ height: `${settings.rowHeight}px` }}
             >
-              {settings.columns.position && <td className="px-2 font-semibold">{row.position}</td>}
+              {settings.columns.position && (
+                <td className="px-2">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-full border border-yuka-cyan/60 bg-yuka-bg text-[0.88em] font-semibold text-yuka-text">
+                    {row.position}
+                  </span>
+                </td>
+              )}
               {settings.columns.positionChange && (
                 <td className={`px-2 font-semibold ${positionDeltaClass(row.positionChange)}`}>
                   {positionDeltaSymbol(row.positionChange)}
                 </td>
               )}
-              {settings.columns.carNumber && <td className="px-2">#{row.driver.carNumber}</td>}
+              {settings.columns.carNumber && <td className="px-2 text-yuka-textSecondary">#{row.driver.carNumber}</td>}
               {settings.columns.countryFlag && <td className="px-2">{countryFlag(row.driver.countryCode)}</td>}
-              {settings.columns.driverName && <td className="px-2">{row.driver.name}</td>}
-              {settings.columns.gap && <td className="px-2">{formatGap(row.gapToLeader)}</td>}
-              {settings.columns.interval && <td className="px-2">{row.position === 1 ? '-' : `+${row.intervalToNext.toFixed(3)}`}</td>}
-              {settings.columns.bestTime && <td className="px-2">{formatTime(row.bestLapTime)}</td>}
-              {settings.columns.lastTime && <td className="px-2">{formatTime(row.lastLapTime)}</td>}
-              {settings.columns.pitStatus && <td className="px-2">{row.pitStatus}</td>}
-              {settings.columns.currentLap && <td className="px-2">{row.currentLap}</td>}
+              {settings.columns.driverName && <td className="px-2 text-yuka-text">{row.driver.name}</td>}
+              {settings.columns.gap && <td className="px-2 font-mono text-emerald-300">{formatGap(row.gapToLeader)}</td>}
+              {settings.columns.interval && (
+                <td className={`px-2 font-mono ${row.position === 1 ? 'text-yuka-textTertiary' : 'text-rose-300'}`}>
+                  {row.position === 1 ? '-' : `+${row.intervalToNext.toFixed(3)}`}
+                </td>
+              )}
+              {settings.columns.bestTime && <td className="px-2 font-mono text-yuka-cyan">{formatTime(row.bestLapTime)}</td>}
+              {settings.columns.lastTime && <td className="px-2 font-mono text-yuka-textSecondary">{formatTime(row.lastLapTime)}</td>}
+              {settings.columns.pitStatus && <td className={`px-2 uppercase ${pitStatusClass(row.pitStatus)}`}>{row.pitStatus}</td>}
+              {settings.columns.currentLap && <td className="px-2 text-yuka-textSecondary">{row.currentLap}</td>}
             </tr>
           ))}
         </tbody>
