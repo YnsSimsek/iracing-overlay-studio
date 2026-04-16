@@ -36,9 +36,10 @@ WebSocket endpoint: `ws://localhost:5000/ws`
 
 ### Features
 
-- Real-time WebSocket data flow (backend -> frontend)
-- Basic iRacing session data model and mock reader fallback
-- Overlay settings panel + live preview + widget editor layout
+- 60Hz real-time WebSocket standings updates with incremental (changed-driver) payloads
+- Professional standings widget (position delta, car number, country flag, gap/interval, best/last, pit, lap)
+- Dark YUKA-style widget customization (size presets, opacity, font size, row spacing, column visibility)
+- Profile-based JSON configuration storage (`/api/config/profiles/{name}`)
 - Zustand store-based state management
 
 ## Türkçe
@@ -75,7 +76,8 @@ WebSocket adresi: `ws://localhost:5000/ws`
 
 ### Özellikler
 
-- Gerçek zamanlı WebSocket veri akışı (backend -> frontend)
-- Temel iRacing session modeli ve mock veri okuma fallback'i
-- Overlay ayarlar paneli + canlı önizleme + widget editör düzeni
+- 60Hz gerçek zamanlı WebSocket standings güncellemesi ve değişen sürücü odaklı payload
+- Profesyonel standings bileşeni (pozisyon değişimi, araç numarası, bayrak, gap/interval, best/last, pit, lap)
+- Koyu YUKA tarzı widget özelleştirme (boyut preset, opaklık, font, satır aralığı, sütun görünürlüğü)
+- Profil bazlı JSON konfigürasyon saklama (`/api/config/profiles/{name}`)
 - Zustand ile durum yönetimi
