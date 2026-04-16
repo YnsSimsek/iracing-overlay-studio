@@ -31,7 +31,7 @@ export const PreviewArea = ({ data, showStandings, settings, onPositionChange }:
   )
 
   return (
-    <section className="flex-1 rounded-xl border border-yuka-accent/60 bg-yuka-bgSecondary/55 p-4 shadow-yuka backdrop-blur-yuka">
+    <section aria-label="Live Preview Area" className="flex-1 rounded-xl border border-yuka-accent/60 bg-yuka-bgSecondary/55 p-4 shadow-yuka backdrop-blur-yuka">
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
         <h2 className="inline-flex items-center gap-2 text-base font-bold tracking-[0.5px] text-yuka-text">
           <ScanLine size={18} className="text-yuka-cyan" /> Live Preview
@@ -70,7 +70,7 @@ export const PreviewArea = ({ data, showStandings, settings, onPositionChange }:
         {showStandings ? (
           <div
             className={`absolute cursor-move rounded-xl border border-dashed p-1 transition duration-250 ${dragging ? 'border-yuka-accent' : 'border-transparent hover:border-yuka-cyan/50'}`}
-            style={{ left: settings.positionX, top: settings.positionY }}
+            style={{ left: 0, top: 0, transform: `translate(${settings.positionX}px, ${settings.positionY}px)` }}
             onMouseDown={() => setDragging(true)}
           >
             <div className="pointer-events-none absolute -left-2 -top-2 rounded-full bg-yuka-accent p-1 text-white shadow-yuka">

@@ -43,10 +43,11 @@ const pitStatusClass = (pitStatus: string) => {
 export const StandingsWidget = ({ standings, changedDriverIds, settings }: Props) => {
   return (
     <div
-      className="overflow-hidden rounded-xl border border-yuka-border bg-yuka-bgSecondary/75 shadow-yuka backdrop-blur-yuka transition duration-250"
+      className="overflow-hidden rounded-xl border border-yuka-border bg-yuka-bgSecondary shadow-yuka backdrop-blur-yuka transition duration-250"
       style={{
         opacity: settings.opacity / 100,
-        fontSize: `${settings.fontSize}px`
+        fontSize: `${settings.fontSize}px`,
+        backgroundColor: 'rgba(15, 18, 41, 0.75)'
       }}
     >
       <table className="w-full border-collapse">

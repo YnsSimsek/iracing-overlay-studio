@@ -46,7 +46,7 @@ export const EditorPanel = ({
   onLoadProfile
 }: Props) => {
   return (
-    <aside className="w-full xl:w-[280px] flex-shrink-0 space-y-3">
+    <aside aria-label="Editor Panel" className="w-full xl:w-[280px] flex-shrink-0 space-y-3">
       <section className={`${cardClass} p-3`}>
         <div className="mb-3 flex items-center justify-between">
           <h2 className="flex items-center gap-2 text-sm font-bold tracking-[0.5px] text-yuka-text">
